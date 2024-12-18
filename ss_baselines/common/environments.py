@@ -104,6 +104,8 @@ class AudioNavRLEnv(habitat.RLEnv):
         done = False
         if self._env.episode_over or self._episode_success():
             done = True
+            success = self.habitat_env.get_metrics()['success']
+            self._env.sim.run_terminated(success)
         return done
 
     def get_info(self, observations):
